@@ -1,5 +1,5 @@
 :: Compile LuaNext for Windows
-:: Run this from the parent directory of build
+:: Run this from the parent directory of release/build
 
 set output=release
 set dir=./%output%/build/windows
