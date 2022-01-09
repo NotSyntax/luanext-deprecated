@@ -15,8 +15,8 @@ del /q %output%\\LuaNext.exe
 set glue=%dir%/glue.exe
 set srlua=%dir%/srlua.exe
 set lua=%dir%/lua.exe
-set squish=%dir%/squish.lua
-set build=%dir%/build.lua
+set squish=%dir%/../global/squish.lua
+set build=%dir%/../global/build.lua
 
 set gen=%lua% %build% main.lua -f
 set collapse=%lua% %squish% -q
