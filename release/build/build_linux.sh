@@ -11,7 +11,7 @@ output="release"
 dir="./$output/build/linux"
 
 echo "Cleaning $output"
-rm -rf "$output/LuaNext.exe"
+rm -rf "$output/LuaNext"
 
 glue="$dir/glue"
 srlua="$dir/srlua"
