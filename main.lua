@@ -6,8 +6,13 @@ local commands = {
     help = require('source/commands/help'),
 }
 
+local scanner = require('source/parser/scanner')
+local lexer = require('source/parser/lexer')
+
 local LuaNext = {
-    commands = commands
+    commands = commands,
+    scanner = scanner,
+    lexer = lexer,
 }
 
 if not debug.getinfo(3) then
@@ -33,7 +38,6 @@ if not debug.getinfo(3) then
         elseif command == 'version' or command == '--version' or command == '-v' then
             print('LuaNext v' .. config.version)
         else
-            table.remove(args, 1)
             commands.compile(args)
         end
     else

@@ -1,0 +1,63 @@
+return {
+    token = {
+        type = 'symbol',
+        characters = {},
+    },
+
+    symbols = {
+        ['..='] = 'join_equal',
+        ['...'] = 'arguments',
+        ['=|='] = 'type_equality',
+        ['==='] = 'exact_equality',
+
+        ['<<'] = 'left_shift',
+        ['>>'] = 'right_shift',
+        ['//'] = 'floor_division',
+        ['=='] = 'equality',
+        ['~='] = 'inequality',
+        ['<='] = 'less_equal',
+        ['>='] = 'greater_equal',
+        ['..'] = 'join',
+
+        ['+='] = 'plus_equal',
+        ['-='] = 'minus_equal',
+        ['*='] = 'star_equal',
+        ['/='] = 'slash_equal',
+        ['|='] = 'pipe_equal',
+        ['&='] = 'and_equal',
+        ['%='] = 'mod_equal',
+        ['^='] = 'power_equal',
+        ['#='] = 'length_equal',
+        ['.='] = 'join_equal',
+        ['=|'] = 'type_equality',
+        ['=>'] = 'arrow',
+
+        ['.'] = 'period',
+        [','] = 'comma',
+        [':'] = 'colon',
+        [';'] = 'semicolon',
+        ['?'] = 'question_mark',
+        ['!'] = 'bang',
+        ['('] = 'open_parenthesis',
+        [')'] = 'close_parenthesis',
+        ['['] = 'open_bracket',
+        [']'] = 'close_bracket',
+        ['{'] = 'open_brace',
+        ['}'] = 'close_brace',
+
+        ['+'] = 'plus',
+        ['-'] = 'minus',
+        ['*'] = 'star',
+        ['/'] = 'slash',
+        ['%'] = 'percent',
+        ['^'] = 'arrow',
+        ['#'] = 'hashtag',
+        ['&'] = 'ampersand',
+        ['~'] = 'tilde',
+        ['|'] = 'pipe',
+        ['='] = 'equal',
+        ['<'] = 'less',
+        ['>'] = 'greater',
+        ['_'] = 'base'
+    }
+}
