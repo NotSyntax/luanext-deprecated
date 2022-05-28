@@ -1971,7 +1971,6 @@ function parser:statements()
 end
 
 function parser:chunk()
-    print(not self.options.has or not self.options:has('no-options'))
     if self:test('string') and (not self.options.has or not self.options:has('no-options')) then
         self.tree.options = table.concat(self:accept('string').characters, '')
         if (not self.options.has or not self.options:has('no-semicolons')) then
