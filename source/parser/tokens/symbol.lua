@@ -6,19 +6,23 @@ return {
 
     symbols = {
         ['..='] = 'join_equal',
-        ['...'] = 'arguments',
+        ['...'] = 'dots',
         ['=|='] = 'type_equality',
         ['==='] = 'exact_equality',
+        ['!=='] = 'exact_inequality',
+        ['~=='] = 'exact_inequality',
 
         ['<<'] = 'left_shift',
         ['>>'] = 'right_shift',
         ['//'] = 'floor_division',
         ['=='] = 'equality',
         ['~='] = 'inequality',
+        ['!='] = 'inequality',
         ['<='] = 'less_equal',
         ['>='] = 'greater_equal',
         ['..'] = 'join',
 
+        ['::'] = 'double_colon',
         ['+='] = 'plus_equal',
         ['-='] = 'minus_equal',
         ['*='] = 'star_equal',
@@ -27,10 +31,14 @@ return {
         ['&='] = 'and_equal',
         ['%='] = 'mod_equal',
         ['^='] = 'power_equal',
-        ['#='] = 'length_equal',
-        ['.='] = 'join_equal',
-        ['=|'] = 'type_equality',
+        ['.='] = 'access_equal',
+        ['$='] = 'base_equal',
+        ['->'] = 'arrow',
         ['=>'] = 'arrow',
+        ['|>'] = 'arrow',
+
+        ['&&'] = 'and',
+        ['||'] = 'or',
 
         ['.'] = 'period',
         [','] = 'comma',
@@ -50,7 +58,7 @@ return {
         ['*'] = 'star',
         ['/'] = 'slash',
         ['%'] = 'percent',
-        ['^'] = 'arrow',
+        ['^'] = 'caret',
         ['#'] = 'hashtag',
         ['&'] = 'ampersand',
         ['~'] = 'tilde',
@@ -58,6 +66,6 @@ return {
         ['='] = 'equal',
         ['<'] = 'less',
         ['>'] = 'greater',
-        ['_'] = 'base'
+        ['$'] = 'base'
     }
 }

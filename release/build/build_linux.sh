@@ -37,5 +37,5 @@ $($glue $srlua ./$output/build/output.lua $output/LuaNext)
 echo "Cleaning temporary files"
 rm -rf "squishy"
 rm -rf "./$output/build/output.lua"
-
+    
 echo "Finished!"
