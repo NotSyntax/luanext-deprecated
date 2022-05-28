@@ -41,7 +41,7 @@ function luau:walk(body)
             self.emitter:emit('break')
         elseif node.type == 'continue' then
             self.emitter:emit('continue')
-        elseif node.call then
+        elseif node.call and node.type ~= 'initialize' then
             self:name(node)
         elseif node.type == 'anonymous' then
             self:anonymous(node)
@@ -51,6 +51,9 @@ function luau:walk(body)
             self:quick_assignment(node)
         elseif node.type == 'add_assign' then
             self:add_assignment(node)
+        elseif node.type == 'initialize' then
+            local body = self:initialize(node.call)
+            self:name(body)
         else
             print(node.type)
         end
@@ -58,6 +61,58 @@ function luau:walk(body)
         if i ~= #body then
             self.emitter:newline()
         end
+    end
+end
+
+function luau:initialize(node)
+    if node.type == 'name' then
+        local body = node.body
+
+        if body.call then
+            local index = body.call.index
+
+            if index then
+                self:initialize_index(body.call.index)
+            end
+        end
+
+        if body.index then
+            self:initialize_index(body.index)
+        end
+    elseif node.type == 'identifier' then
+        local index = node.index
+
+        if index then
+            self:initialize_index(index)
+        end
+    end
+
+    return node
+end
+
+function luau:initialize_index(node, ignoreIndex)
+    if node.yindex and not ignoreIndex then
+        self:initialize_index(node, true)
+    elseif node.type == 'name' then
+        self:initialize(node)
+    end
+
+    if node.call and not ignoreIndex then
+        node.index = {
+            call = node.call,
+            type = "identifier",
+            characters = {
+                "n", "e", "w"
+            }
+        }
+        node.call = nil
+
+        return
+    end
+
+    local index = node.index
+    if index and not ignoreIndex then
+        self:initialize_index(node.index)
     end
 end
 
@@ -363,43 +418,67 @@ function luau:class_declaration(node)
     self.emitter:newline()
 
     name.index = nil
+    self.emitter:emit('for')
+    self.emitter:whitespace()
+    
+    if self.options.minify then
+        self.emitter:emit('n')
+    else
+        self.emitter:emit('name')
+    end
+    
+    self.emitter:emit(',')
+    self.emitter:optional()
+
+    if self.options.minify then
+        self.emitter:emit('v')
+    else
+        self.emitter:emit('value')
+    end
+
+    self.emitter:whitespace()
+    self.emitter:emit('in')
+    
+    self.emitter:whitespace()
+
     self:name({
-        type = 'name',
+        type = "name",
+        call = true,
         body = {
-            type = 'identifier',
-            characters = { 's', 'e', 't', 'm', 'e', 't', 'a', 't', 'a', 'b', 'l', 'e' },
+            arguments = {
+                {
+                    type = "name",
+                    body = name
+                }
+            },
             call = {
                 arguments = {
                     {
-                        type = 'name',
-                        body = {
-                            type = 'identifier',
-                            characters = { 's', 'e', 'l', 'f' }
-                        }
-                    },
-                    {
-                        type = 'table',
-                        body = {
-                            {
-                                type = 'field',
-                                key = {
-                                    type = 'identifier',
-                                    characters = { '_', '_', 'i', 'n', 'd', 'e', 'x' }
-                                },
-                                value = {
-                                    type = 'name',
-                                    body = name
-                                }
-                            }
-                        }
+                        type = "name",
+                        body = name
                     }
                 },
                 type = 'call'
-            }
+            },
+            characters = { 'p', 'a', 'i', 'r', 's' },
+            type = "identifier"
         }
     })
 
-    setmetatable(self, { __index = banana })
+    self.emitter:whitespace()
+    self.emitter:emit('do')
+    self.emitter:indent()
+    self.emitter:newline()
+    self.emitter:unindent()
+
+    if self.options.minify then
+        self.emitter:emit('self[n]=v')
+    else
+        self.emitter:emit('self[name] = value')
+    end
+    
+    self.emitter:newline()
+    self.emitter:emit('end')
 
     local assignments = false
     for i, action in ipairs(node.body) do
@@ -463,10 +542,14 @@ function luau:class_declaration(node)
             action.name = name
             
             self:function_declaration(action)
-            self.emitter:newline()
+
+            if i ~= #node.body then
+                self.emitter:newline()
+            end
         end
     end
 
+    self.emitter:newline()
     name.index = nil
     self.emitter:emit('setmetatable')
     self.emitter:emit('(')
@@ -952,6 +1035,8 @@ function luau:expression(node)
             self.emitter:emit('#')
 
             self:expression(node.body)
+        else
+            print(node.type)
         end
     elseif node.type == 'binary' then
         --[[
@@ -1014,7 +1099,13 @@ function luau:expression(node)
         elseif node.action == 'base' then
             self:base(node)
         elseif node.action == 'divide' then
-            self:divide(node)
+            self:expression(node.left)
+
+            self.emitter:optional()
+            self.emitter:emit('/')
+            self.emitter:optional()
+
+            self:expression(node.right)
         elseif node.action == 'floor_division' then
             self:floor_division(node)
         elseif node.action == 'bitwise_and' then

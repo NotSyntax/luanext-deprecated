@@ -4,5 +4,3 @@
 		<img src="../assets/name/standardlight.svg" style="margin: 0;" width="200" align="center" valign="middle">
 	</a>
 </div>
-
-The

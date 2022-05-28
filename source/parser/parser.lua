@@ -1971,15 +1971,15 @@ function parser:statements()
 end
 
 function parser:chunk()
-    if self:test('string') and not self.options:has('no-options') then
+    print(not self.options.has or not self.options:has('no-options'))
+    if self:test('string') and (not self.options.has or not self.options:has('no-options')) then
         self.tree.options = table.concat(self:accept('string').characters, '')
-        if not self.options:has('no-semicolons') then
+        if (not self.options.has or not self.options:has('no-semicolons')) then
             self:accept('semicolon')
         end
     end
 
-    self.tree.options = options:parse(self.tree.options or '', self.options or {})
-
+    self.tree.options = options:parse(self.tree.options or {}, self.options or {})
     self:enter(self.tree, self.tree.body)
 
     while self.token do

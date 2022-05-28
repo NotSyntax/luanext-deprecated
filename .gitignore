@@ -5,6 +5,8 @@ luac.out
 .vscode
 debug
 .git
+release
+docs
 
 # luarocks build files
 *.src.rock

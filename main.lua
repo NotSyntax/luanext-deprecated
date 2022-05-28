@@ -23,6 +23,8 @@ if not debug.getinfo(3) then
     if #args > 0 then
         if command == 'help' or command == '--help' or command == '-h' then
             commands.help(value)
+        elseif command == 'build' then
+            os.execute(io.popen("cd"):read('*l') .. '/release/build/build_windows.bat')
         elseif command == 'compile' then
             commands.compile({ value })
         elseif command == 'script' then

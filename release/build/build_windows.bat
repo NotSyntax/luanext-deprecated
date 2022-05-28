@@ -10,7 +10,7 @@ set output=release
 set dir=./%output%/build/windows
 
 echo Cleaning %output%
-del /q %output%\\LuaNext.exe
+del /q %output%\\clamp.exe
 
 set glue=%dir%/glue.exe
 set srlua=%dir%/srlua.exe
@@ -20,7 +20,7 @@ set build=%dir%/../global/build.lua
 
 set gen=%lua% %build% main.lua -f
 set collapse=%lua% %squish% -q
-set command=%glue% %srlua% ./release/build/output.lua %output%/LuaNext.exe
+set command=%glue% %srlua% ./release/build/output.lua %output%/luanext.exe
 
 echo Generating Squish file
 powershell -Command %gen%

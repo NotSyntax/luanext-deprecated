@@ -11,7 +11,7 @@ output="release"
 dir="./$output/build/linux"
 
 echo "Cleaning $output"
-rm -rf "$output/LuaNext"
+rm -rf "$output/clamp"
 
 glue="$dir/glue"
 srlua="$dir/srlua"
@@ -32,10 +32,10 @@ echo "Squishing LuaNext"
 $($lua $squish -q)
 
 echo "Compiling to executable"
-$($glue $srlua ./$output/build/output.lua $output/LuaNext)
+$($glue $srlua ./$output/build/output.lua $output/clamp)
 
 echo "Cleaning temporary files"
 rm -rf "squishy"
 rm -rf "./$output/build/output.lua"
-    
+
 echo "Finished!"

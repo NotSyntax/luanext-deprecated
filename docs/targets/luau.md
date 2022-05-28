@@ -26,7 +26,7 @@
 [If Statement](#If)
 
 </td>
-<td align="center">❌</td>
+<td align="center">✔️</td>
 </tr>
 
 <tr>
@@ -40,7 +40,7 @@
 [While Statement](#While)
 
 </td>
-<td align="center">❌</td>
+<td align="center">✔️</td>
 </tr>
 
 <tr>
@@ -54,7 +54,7 @@
 [Repeat Statement](#Repeat)
 
 </td>
-<td align="center">❌</td>
+<td align="center">✔️</td>
 </tr>
 
 <tr>
@@ -68,7 +68,21 @@
 [Function Statement](#Functions)
 
 </td>
-<td align="center">❌</td>
+<td align="center">✔️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+`class`
+
+</td>
+<td align="center">
+
+[Class Statement](#Classes)
+
+</td>
+<td align="center">⚠️</td>
 </tr>
 
 </table>
