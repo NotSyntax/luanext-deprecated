@@ -1,7 +1,5 @@
 local luau = {}
 
-local inspect = require('debug/inspect')
-
 local emitter = require('source/compiler/emitter')
 local frog = require('source/lib/frog')
 
